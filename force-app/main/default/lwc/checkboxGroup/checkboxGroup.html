@@ -1,0 +1,11 @@
+<template>
+    <fieldset class={formElementClass}>
+        <legend if:true={showLabel} class="slds-form-element__legend slds-form-element__label  slds-m-bottom_xx-small">
+            {label}
+        </legend>
+        <div class="slds-form-element__control">
+            <slot onslotchange={handleSlotChange}></slot>
+        </div>
+        <div if:true={showError} class="slds-form-element__help slds-m-top_x-small slds-m-left_large">{errorMessage}</div>
+    </fieldset>
+</template>
