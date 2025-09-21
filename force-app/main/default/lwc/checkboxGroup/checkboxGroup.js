@@ -119,6 +119,7 @@ export default class CheckboxGroup extends LightningElement {
         }
 
         this.dispatchEvent(new CustomEvent("change", { detail: event.target }));
+        this.reportValidity();
     }
 
     handleClick = (event) => {
