@@ -58,17 +58,17 @@ You can use this component inside your Lightning Web Components or Aura componen
 
 ### Events
 
-| Event               | Description                                       |
-|---------------------|---------------------------------------------------|
-| `change`            | The state of a checkbox in the group has changed. |
-| `click`             | A checkbox in the group has been clicked.         |
-| `input`             | Same as `change`.                                 |
-| `focus`             | A checkbox in the group has gained focus.         |
-| `blur`              | A checkbox in the group has lost focus.           |
+| Event               | Description                                       | Detail                                 |
+|---------------------|---------------------------------------------------|----------------------------------------|
+| `change`            | The state of a checkbox in the group has changed. | The checkbox that triggered the event. |
+| `click`             | A checkbox in the group has been clicked.         | The checkbox that triggered the event. |
+| `input`             | Same as `change`.                                 | The checkbox that triggered the event. |
+| `focus`             | A checkbox in the group has gained focus.         | The checkbox that triggered the event. |
+| `blur`              | A checkbox in the group has lost focus.           | The checkbox that triggered the event. |
 
 ## Examples
 
-### Example 1: Basic Usage
+### Example 1: Base Usage
 
 ![base_checkbox_group](https://github.com/user-attachments/assets/653c759f-75bf-469b-8f7d-839520618d05)
 
@@ -96,6 +96,40 @@ export default class ParentComponent extends LightningElement {
       this.values[event.detail.dataset.id] = event.detail.checked;
   }
 }
+```
+
+### Example 2: Multiple Selection
+
+![multiple_checkbox_group](https://github.com/user-attachments/assets/6f6b3740-efcf-41a6-ae5e-aacd11d768f6)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." onchange={handleChange} multiple>
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
+```
+
+### Example 3: Required Selection
+
+![multiple_checkbox_group](https://github.com/user-attachments/assets/c75d4427-f404-4909-af4c-a2d8ba559442)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." onchange={handleChange} required>
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
 ```
 
 ## Styling / Customization
