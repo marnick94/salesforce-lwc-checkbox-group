@@ -39,8 +39,7 @@ You can use this component inside your Lightning Web Components or Aura componen
 
 | Property                   | Type      | Required | Default | Description                                            |
 |----------------------------|-----------|----------|---------|--------------------------------------------------------|
-| `label`                    | `String`  | No       | `<blank>` | Label of the checkbox-group.                           |
-| `variant`                  | `String`  | No       | `label-stacked` | Use `label-hidden` to hide the label.<br>Use `label-stacked` to place the label above the group. |
+| `label`                    | `String`  | No       | `<blank>` | Label of the checkbox-group.                         |
 | `readonly`                 | `Boolean` | No       | `false` | If `true`, the checkbox-group is read-only.            |
 | `required`                 | `Boolean` | No       | `false` | If `true`, at least one checkbox in the group must be selected. |
 | `multiple`                 | `Boolean` | No       | `false` | If `false`, only one checkbox in the group can be selected at a time. |
