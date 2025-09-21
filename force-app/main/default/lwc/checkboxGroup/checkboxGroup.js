@@ -83,12 +83,10 @@ export default class CheckboxGroup extends LightningElement {
     checkValidity() {
         if(this._customValidityErrorMsg && !this.readOnly) {
             this._validity = false;
+        } else if(this.required && !this.readOnly) {
+            this._validity = this._checkboxes.reduce((acc, cb) =>  acc || cb.checked, false);
         } else {
             this._validity = true;
-            
-            if(this.required && !this.readOnly) {
-                this._validity &= this._checkboxes.reduce((acc, cb) =>  acc || cb.checked, false);
-            }
         }
         
         return this._validity;
