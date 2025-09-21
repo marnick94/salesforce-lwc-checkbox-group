@@ -115,9 +115,9 @@ export default class ParentComponent extends LightningElement {
 </template>
 ```
 
-### Example 3: Required Selection
+### Example 3: Required
 
-![multiple_checkbox_group](https://github.com/user-attachments/assets/c75d4427-f404-4909-af4c-a2d8ba559442)
+![required_checkbox_group](https://github.com/user-attachments/assets/7194939b-3283-44f8-9e4a-e18d3446f3f3)
 
 ```html
 <!-- parentComponent.html -->
@@ -127,6 +127,23 @@ export default class ParentComponent extends LightningElement {
       <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
       <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
       <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
+```
+
+### Example 4: Readonly
+
+![readonly_checkbox_group](https://github.com/user-attachments/assets/8f224887-eaff-4b36-9104-033099460d23)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." onchange={handleChange} readonly>
+      <c-checkbox data-id="a" checked>Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b" checked>Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d" checked>Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
       <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
   </c-checkbox-group>
 </template>
