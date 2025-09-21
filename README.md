@@ -149,6 +149,55 @@ export default class ParentComponent extends LightningElement {
 </template>
 ```
 
+### Example 5: Custom Missing Value Message
+
+![custom_error_checkbox_group](https://github.com/user-attachments/assets/9c59c1e1-dae9-4263-9109-caebc6008eef)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." onchange={handleChange}
+      message-when-value-missing="At least one option must be selected."
+      required>
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
+```
+
+### Example 6: Custom Validity
+
+![custom_validity_checkbox_group](https://github.com/user-attachments/assets/aff4ea2c-aef6-4e3b-ba87-3d8bfc58b68a)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <lightning-button label="Toogle Custom Validity" onclick={handleCustomValidityToogle}></lightning-button><br><br>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
+```
+
+```js
+// parentComponent.js
+import { LightningElement } from 'lwc';
+
+export default class ParentComponent extends LightningElement {
+  handleCustomValidityToogle(event) {
+    const checkboxGroup = this.template.querySelector('c-checkbox-group');
+    checkboxGroup.setCustomValidity(checkboxGroup.checkValidity() ? 'This field is required.' : '');
+  }
+}
+```
+
 ## Styling / Customization
 
 You can customize styles (colors, size, margins, etc.) by editing the component's `.css` file.  
