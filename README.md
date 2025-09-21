@@ -68,7 +68,35 @@ You can use this component inside your Lightning Web Components or Aura componen
 
 ## Examples
 
+### Example 1: Basic Usage
 
+![base_checkbox_group](https://github.com/user-attachments/assets/653c759f-75bf-469b-8f7d-839520618d05)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." onchange={handleChange}>
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
+```
+
+```js
+// parentComponent.js
+import { LightningElement, track } from 'lwc';
+
+export default class ParentComponent extends LightningElement {
+  @track values = {};
+
+  handleChange(event) {
+      this.values[event.detail.dataset.id] = event.detail.checked;
+  }
+}
+```
 
 ## Styling / Customization
 
