@@ -6,6 +6,6 @@
         <div class="slds-form-element__control">
             <slot onslotchange={handleSlotChange}></slot>
         </div>
-        <div if:true={showError} class="slds-form-element__help slds-m-top_x-small slds-m-left_large">{errorMessage}</div>
+        <div if:true={_showError} class="slds-form-element__help slds-m-top_x-small slds-m-left_large">{errorMessage}</div>
     </fieldset>
 </template>

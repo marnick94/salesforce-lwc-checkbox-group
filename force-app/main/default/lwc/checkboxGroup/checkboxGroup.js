@@ -1,89 +1,120 @@
 import { LightningElement, api } from 'lwc';
 
+const DEFAULT_MESSAGE_WHEN_VALUE_MISSING = 'Complete this field.';
+
 export default class CheckboxGroup extends LightningElement {
-    @api label = '';
-    @api readOnly = false;
-    @api required = false;
-    @api multiple = false;
-    @api messageWhenValueMissing = 'Complete this field.';
+    _label = '';
+    _readOnly = false;
+    _required = false;
+    _multiple = false;
+    _validity = true;
+    _showError = false;
+    _customValidityErrorMsg = "";
+    _messageWhenValueMissing = DEFAULT_MESSAGE_WHEN_VALUE_MISSING;
+    _checkboxes = [];
 
-    validity = true;
-    showError = false;
-    customValidityErrorMsg = "";
-    checkboxes = [];
-
-    renderedCallback() {
-        this.checkboxes.forEach((checkbox) => {
-            checkbox.readOnly = this.readOnly;
-        });
+    @api
+    get label() {
+        return this._label;
     }
 
-    get errorMessage() {
-        return this.customValidityErrorMsg ? this.customValidityErrorMsg : this.messageWhenValueMissing;
+    set label(value) {
+        this._label = value;
     }
 
-    get formElementClass() {
-        let classes = 'slds-form-element';
-        classes += this.showError ? ' slds-has-error' : '';
-        classes += this.readOnly ? ' read-only' : '';
-        return classes;
+    @api
+    get readOnly() {
+        return this._readOnly;
     }
 
-    get showLabel() {
-        return !!this.label;
+    set readOnly(value) {
+        this._readOnly = !!value;
+    }
+
+    @api
+    get required() {
+        return this._required;
+    }
+
+    set required(value) {
+        this._required = !!value;
+    }
+
+    @api
+    get multiple() {
+        return this._multiple;
+    }
+
+    set multiple(value) {
+        this._multiple = !!value;
+    }
+
+    @api
+    get messageWhenValueMissing() {
+        return this._messageWhenValueMissing;
+    }
+
+    set messageWhenValueMissing(value) {
+        this._messageWhenValueMissing = value ? value : DEFAULT_MESSAGE_WHEN_VALUE_MISSING;
     }
 
     @api
     clear() {
-        this.checkboxes.forEach((checkbox) => {
+        this._checkboxes.forEach((checkbox) => {
             checkbox.checked = false;
         });
     }
 
     @api
     blur() {
-        this.checkboxes.forEach((checkbox) => {
+        this._checkboxes.forEach((checkbox) => {
             checkbox.blur();
         });
     }
 
     @api
     focus() {
-        if(this.checkboxes.length > 0) {
-            this.checkboxes[0].focus();
+        if(this._checkboxes.length > 0) {
+            this._checkboxes[0].focus();
         }
     }
 
     @api
     checkValidity() {
-        if(this.customValidityErrorMsg && !this.readOnly) {
-            this.validity = false;
+        if(this._customValidityErrorMsg && !this.readOnly) {
+            this._validity = false;
         } else {
-            this.validity = this.checkboxes.reduce((acc, cb) =>  acc && cb.checkValidity(), true);
+            this._validity = true;
             
             if(this.required && !this.readOnly) {
-                this.validity &= this.checkboxes.reduce((acc, cb) =>  acc || cb.checked, false);
+                this._validity &= this._checkboxes.reduce((acc, cb) =>  acc || cb.checked, false);
             }
         }
         
-        return this.validity;
+        return this._validity;
     }
     
     @api
     reportValidity() {
-        this.showError = !this.checkValidity();
-        return this.validity;
+        this._showError = !this.checkValidity();
+        return this._validity;
     }
 
     @api
     setCustomValidity(message) {
-        this.customValidityErrorMsg = message;
+        this._customValidityErrorMsg = message;
         this.reportValidity();
-    }    
+    }
+
+    renderedCallback() {
+        this._checkboxes.forEach((cb) => {
+            cb.bind(this);
+        });
+    }
 
     handleChange = (event) => {
         if(!this.multiple && event.target.checked) {
-            this.checkboxes.filter(cb => cb !== event.target).forEach(cb => {
+            this._checkboxes.filter(cb => cb !== event.target).forEach(cb => {
                 cb.checked = false;
                 this.dispatchEvent(new CustomEvent("change", { detail: cb }));
             });
@@ -112,7 +143,7 @@ export default class CheckboxGroup extends LightningElement {
     handleSlotChange(event) {
         const slot = event.target;
 
-        this.checkboxes = slot.assignedNodes({ flatten: true }).filter(node => {
+        this._checkboxes = slot.assignedNodes({ flatten: true }).filter(node => {
             if(node.tagName !== 'C-CHECKBOX') {
                 slot.removeChild(node);
                 return false;
@@ -121,8 +152,8 @@ export default class CheckboxGroup extends LightningElement {
             return true;
         });
 
-        this.checkboxes.forEach(cb => {
-            cb.readOnly = this.readOnly;
+        this._checkboxes.forEach(cb => {
+            cb.bind(this);
 
             cb.removeEventListener('change', this.handleChange, true);
             cb.addEventListener('change', this.handleChange, true);
@@ -139,5 +170,20 @@ export default class CheckboxGroup extends LightningElement {
             cb.removeEventListener('blur', this.handleBlur, true);
             cb.addEventListener('blur', this.handleBlur, true);
         });
+    }
+
+    get errorMessage() {
+        return this._customValidityErrorMsg ? this._customValidityErrorMsg : this.messageWhenValueMissing;
+    }
+
+    get formElementClass() {
+        let classes = 'slds-form-element';
+        classes += this._showError ? ' slds-has-error' : '';
+        classes += this.readOnly ? ' read-only' : '';
+        return classes;
+    }
+
+    get showLabel() {
+        return !!this.label;
     }
 }
