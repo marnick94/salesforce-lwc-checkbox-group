@@ -1,4 +1,4 @@
-# salesforce-lwc-checkbox-group
+# checkbox-group
 
 A reusable Lightning Web Component (LWC) that offers a more flexible and compact way to handle single or multiple checkbox validation than standard Salesforce components.
 
