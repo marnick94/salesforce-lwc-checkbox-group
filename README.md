@@ -175,7 +175,7 @@ export default class ParentComponent extends LightningElement {
 ```html
 <!-- parentComponent.html -->
 <template>
-  <lightning-button label="Toogle Custom Validity" onclick={handleCustomValidityToogle}></lightning-button><br><br>
+  <lightning-button label="Toogle Custom Validity" onclick={handleCustomValidityToogle}></lightning-button>
   <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
       <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
       <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
@@ -196,6 +196,53 @@ export default class ParentComponent extends LightningElement {
     checkboxGroup.setCustomValidity(checkboxGroup.checkValidity() ? 'This field is required.' : '');
   }
 }
+```
+
+### Example 7: Clear Selection
+
+![clear_checkbox_group](https://github.com/user-attachments/assets/8277dd2c-11e9-4357-93db-e1fde6fc0032)
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <lightning-button label="Clear" onclick={handleClear}></lightning-button>
+  <c-checkbox-group label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." multiple>
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
+```
+
+```js
+// parentComponent.js
+import { LightningElement } from 'lwc';
+
+export default class ParentComponent extends LightningElement {
+  handleClear(event) {
+    const checkboxGroup = this.template.querySelector('c-checkbox-group');
+    checkboxGroup.clear();
+  }
+}
+```
+
+### Example 8: Without Label
+
+<img width="541" height="183" alt="image" src="https://github.com/user-attachments/assets/3d8a7f74-d577-4159-83ae-1b5df3b1ecbb" /><br>
+
+```html
+<!-- parentComponent.html -->
+<template>
+  <c-checkbox-group>
+      <c-checkbox data-id="a">Quisque efficitur elit ac leo aliquam, sed vestibulum dolor feugiat.</c-checkbox>
+      <c-checkbox data-id="b">Fusce sit amet arcu auctor, volutpat sem nec, porta ante.</c-checkbox>
+      <c-checkbox data-id="c">Morbi sit amet libero finibus, semper tortor et, aliquet urna.</c-checkbox>
+      <c-checkbox data-id="d">Sed eros leo, convallis sed convallis id, elementum at elit.</c-checkbox>
+      <c-checkbox data-id="e">Praesent ullamcorper ligula id ex lacinia, eu luctus mauris laoreet.</c-checkbox>
+  </c-checkbox-group>
+</template>
 ```
 
 ## Styling / Customization
