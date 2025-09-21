@@ -132,7 +132,7 @@ export default class ParentComponent extends LightningElement {
 </template>
 ```
 
-### Example 4: Readonly
+### Example 4: Read-Only
 
 ![readonly_checkbox_group](https://github.com/user-attachments/assets/8f224887-eaff-4b36-9104-033099460d23)
 
