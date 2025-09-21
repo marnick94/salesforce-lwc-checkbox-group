@@ -245,7 +245,7 @@ export default class ParentComponent extends LightningElement {
 </template>
 ```
 
-### Example 8: Long Label
+### Example 9: Long Label
 
 <img width="795" height="305" alt="image" src="https://github.com/user-attachments/assets/184e4d6c-d0f5-48d8-ac44-f8fef767cd61" /><br>
 
