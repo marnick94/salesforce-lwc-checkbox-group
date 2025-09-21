@@ -11,7 +11,6 @@ export default class CheckboxGroup extends LightningElement {
     showError = false;
     customValidityErrorMsg = "";
     checkboxes = [];
-    _variant = 'label-stacked';
 
     renderedCallback() {
         this.checkboxes.forEach((checkbox) => {
@@ -31,16 +30,7 @@ export default class CheckboxGroup extends LightningElement {
     }
 
     get showLabel() {
-        return this.variant !== 'label-hidden';
-    }
-
-    @api
-    get variant() {
-        return this._variant;
-    }
-
-    set variant(value) {
-        this._variant = ['label-stacked', 'label-hidden'].includes(value) ? value : 'label-stacked';
+        return !!this.label;
     }
 
     @api
@@ -93,7 +83,10 @@ export default class CheckboxGroup extends LightningElement {
 
     handleChange = (event) => {
         if(!this.multiple && event.target.checked) {
-            this.checkboxes.filter(cb => cb !== event.target).forEach(cb => cb.checked = false);
+            this.checkboxes.filter(cb => cb !== event.target).forEach(cb => {
+                cb.checked = false;
+                this.dispatchEvent(new CustomEvent("change", { detail: cb }));
+            });
         }
 
         this.dispatchEvent(new CustomEvent("change", { detail: event.target }));
