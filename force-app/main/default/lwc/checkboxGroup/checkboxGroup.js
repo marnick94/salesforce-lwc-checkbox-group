@@ -11,7 +11,7 @@ export default class CheckboxGroup extends LightningElement {
     _showError = false;
     _customValidityErrorMsg = "";
     _messageWhenValueMissing = DEFAULT_MESSAGE_WHEN_VALUE_MISSING;
-    _checkboxes = [];
+    _slot = [];
 
     @api
     get label() {
@@ -60,22 +60,22 @@ export default class CheckboxGroup extends LightningElement {
 
     @api
     clear() {
-        this._checkboxes.forEach((checkbox) => {
+        this._slot.forEach((checkbox) => {
             checkbox.checked = false;
         });
     }
 
     @api
     blur() {
-        this._checkboxes.forEach((checkbox) => {
+        this._slot.forEach((checkbox) => {
             checkbox.blur();
         });
     }
 
     @api
     focus() {
-        if(this._checkboxes.length > 0) {
-            this._checkboxes[0].focus();
+        if(this._slot.length > 0) {
+            this._slot[0].focus();
         }
     }
 
@@ -84,7 +84,7 @@ export default class CheckboxGroup extends LightningElement {
         if(this._customValidityErrorMsg && !this.readOnly) {
             this._validity = false;
         } else if(this.required && !this.readOnly) {
-            this._validity = this._checkboxes.reduce((acc, cb) =>  acc || cb.checked, false);
+            this._validity = this._slot.reduce((acc, cb) =>  acc || cb.checked, false);
         } else {
             this._validity = true;
         }
@@ -105,14 +105,14 @@ export default class CheckboxGroup extends LightningElement {
     }
 
     renderedCallback() {
-        this._checkboxes.forEach((cb) => {
+        this._slot.forEach((cb) => {
             cb.bind(this);
         });
     }
 
     handleChange = (event) => {
         if(!this.multiple && event.target.checked) {
-            this._checkboxes.filter(cb => cb !== event.target).forEach(cb => {
+            this._slot.filter(cb => cb !== event.target).forEach(cb => {
                 cb.checked = false;
                 this.dispatchEvent(new CustomEvent("change", { detail: cb }));
             });
@@ -142,7 +142,7 @@ export default class CheckboxGroup extends LightningElement {
     handleSlotChange(event) {
         const slot = event.target;
 
-        this._checkboxes = slot.assignedNodes({ flatten: true }).filter(node => {
+        this._slot = slot.assignedNodes({ flatten: true }).filter(node => {
             if(node.tagName !== 'C-CHECKBOX') {
                 slot.removeChild(node);
                 return false;
@@ -151,7 +151,7 @@ export default class CheckboxGroup extends LightningElement {
             return true;
         });
 
-        this._checkboxes.forEach(cb => {
+        this._slot.forEach(cb => {
             cb.bind(this);
 
             cb.removeEventListener('change', this.handleChange, true);
